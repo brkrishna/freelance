@@ -1,0 +1,342 @@
+drop table links;
+drop table records;
+
+create table records(
+    id  integer primary key autoincrement,
+    name varchar(255) not null,
+    catg varchar(255),
+    subcatg varchar(255),
+    points varchar(50),
+    item_no varchar(100),
+    img_url varchar(255),
+    notes text,
+    descr varchar(2000),
+    ts datetime default current_timestamp
+);
+
+create table links(
+    id integer primary key autoincrement,
+    catg varchar(255),
+    subcatg varchar(255),
+    done bit default 0,
+    ts datetime default current_timestamp
+);
+
+update links set done = 0 where id in (1, 2, 45);
+
+select done, count(*) from links group by done;
+
+select catg, subcatg, count(*) from records group by catg, subcatg; 
+
+insert into links (catg, subcatg) values ('Electronics','Musical Instruments');
+insert into links (catg, subcatg) values ('Electronics','Accessories');
+insert into links (catg, subcatg) values ('Electronics','Audio');
+insert into links (catg, subcatg) values ('Electronics','Automotive');
+insert into links (catg, subcatg) values ('Electronics','Camcorders');
+insert into links (catg, subcatg) values ('Electronics','Cameras');
+insert into links (catg, subcatg) values ('Electronics','Office');
+insert into links (catg, subcatg) values ('Electronics','DVD &amp; Blu-ray Players');
+insert into links (catg, subcatg) values ('Electronics','Gaming');
+insert into links (catg, subcatg) values ('Electronics','GPS');
+insert into links (catg, subcatg) values ('Electronics','Phones');
+insert into links (catg, subcatg) values ('Electronics','TVs &amp; Stands');
+insert into links (catg, subcatg) values ('Electronics','Tablets');
+
+insert into links (catg, subcatg) values ('Video Games','Accessories');
+insert into links (catg, subcatg) values ('Video Games','Consoles');
+insert into links (catg, subcatg) values ('Video Games','Games');
+insert into links (catg, subcatg) values ('Video Games','Handhelds');
+insert into links (catg, subcatg) values ('Video Games','Nintendo');
+insert into links (catg, subcatg) values ('Video Games','Sony');
+insert into links (catg, subcatg) values ('Video Games','Xbox');
+insert into links (catg, subcatg) values ('Video Games','Polk');
+insert into links (catg, subcatg) values ('Video Games','Gamer');
+
+insert into links (catg, subcatg) values ('Home & Garden','Pets');
+insert into links (catg, subcatg) values ('Home & Garden','Dyson Fans');
+insert into links (catg, subcatg) values ('Home & Garden','Air Care');
+insert into links (catg, subcatg) values ('Home & Garden','Bath');
+insert into links (catg, subcatg) values ('Home & Garden','Bedroom');
+insert into links (catg, subcatg) values ('Home & Garden','Books\Entertainment');
+insert into links (catg, subcatg) values ('Home & Garden','Dining');
+insert into links (catg, subcatg) values ('Home & Garden','Floorcare');
+insert into links (catg, subcatg) values ('Home & Garden','Furniture');
+insert into links (catg, subcatg) values ('Home & Garden','Game Room');
+insert into links (catg, subcatg) values ('Home & Garden','Healthy Home');
+insert into links (catg, subcatg) values ('Home & Garden','Home Decor');
+insert into links (catg, subcatg) values ('Home & Garden','Home Office');
+insert into links (catg, subcatg) values ('Home & Garden','Kitchen');
+insert into links (catg, subcatg) values ('Home & Garden','Laundry Room');
+insert into links (catg, subcatg) values ('Home & Garden','Memorabilia');
+insert into links (catg, subcatg) values ('Home & Garden','Safety');
+insert into links (catg, subcatg) values ('Home & Garden','Sewing');
+insert into links (catg, subcatg) values ('Home & Garden','Cycling');
+insert into links (catg, subcatg) values ('Home & Garden','BBQ');
+insert into links (catg, subcatg) values ('Home & Garden','Coolers');
+insert into links (catg, subcatg) values ('Home & Garden','Lawn &amp; Garden');
+insert into links (catg, subcatg) values ('Home & Garden','Outdoor Fireplaces &amp; Heaters');
+insert into links (catg, subcatg) values ('Home & Garden','Patio');
+insert into links (catg, subcatg) values ('Home & Garden','Pool &amp; Beach');
+insert into links (catg, subcatg) values ('Home & Garden','Spas');
+insert into links (catg, subcatg) values ('Home & Garden','Electronics');
+insert into links (catg, subcatg) values ('Home & Garden','Generators');
+insert into links (catg, subcatg) values ('Home & Garden','Hand Tools');
+insert into links (catg, subcatg) values ('Home & Garden','Kits');
+insert into links (catg, subcatg) values ('Home & Garden','Lawn &amp; Garden');
+insert into links (catg, subcatg) values ('Home & Garden','Paint Supplies');
+insert into links (catg, subcatg) values ('Home & Garden','Power Tools');
+insert into links (catg, subcatg) values ('Home & Garden','Pressure Washers');
+insert into links (catg, subcatg) values ('Home & Garden','Shop Vacs');
+insert into links (catg, subcatg) values ('Home & Garden','Storage &amp; Organization');
+insert into links (catg, subcatg) values ('Home & Garden','Crafting');
+insert into links (catg, subcatg) values ('Home & Garden','Accessories');
+insert into links (catg, subcatg) values ('Home & Garden','Air Compressors');
+insert into links (catg, subcatg) values ('Home & Garden','Automotive');
+insert into links (catg, subcatg) values ('Home & Garden','Black &amp; Decker');
+insert into links (catg, subcatg) values ('Home & Garden','Buffalo Tools');
+insert into links (catg, subcatg) values ('Home & Garden','Bosch');
+insert into links (catg, subcatg) values ('Home & Garden','Campbell Hausfeld');
+insert into links (catg, subcatg) values ('Home & Garden','Cub Cadet');
+insert into links (catg, subcatg) values ('Home & Garden','DeWalt');
+insert into links (catg, subcatg) values ('Home & Garden','Husqvarna');
+insert into links (catg, subcatg) values ('Home & Garden','Milwaukee');
+insert into links (catg, subcatg) values ('Home & Garden','Skil');
+insert into links (catg, subcatg) values ('Home & Garden','Worx');
+insert into links (catg, subcatg) values ('Home & Garden','Little Giant Ladder');
+insert into links (catg, subcatg) values ('Home & Garden','Makita');
+insert into links (catg, subcatg) values ('Home & Garden','Poulan');
+insert into links (catg, subcatg) values ('Home & Garden','Murray');
+insert into links (catg, subcatg) values ('Home & Garden','All Brands');
+insert into links (catg, subcatg) values ('Home & Garden','Godiva');
+insert into links (catg, subcatg) values ('Home & Garden','Lobster Gram');
+insert into links (catg, subcatg) values ('Home & Garden','Omaha Steaks');
+insert into links (catg, subcatg) values ('Home & Garden','Wine Galaxy');
+insert into links (catg, subcatg) values ('Home & Garden','Appetizers &amp; Sides');
+insert into links (catg, subcatg) values ('Home & Garden','Beverages');
+insert into links (catg, subcatg) values ('Home & Garden','Complete Meals');
+insert into links (catg, subcatg) values ('Home & Garden','Gift Baskets &amp; Towers');
+insert into links (catg, subcatg) values ('Home & Garden','Meat &amp; Poultry');
+insert into links (catg, subcatg) values ('Home & Garden','Sauces, Spices, Oils');
+insert into links (catg, subcatg) values ('Home & Garden','Seafood');
+insert into links (catg, subcatg) values ('Home & Garden','Sweets');
+insert into links (catg, subcatg) values ('Home & Garden','All Brands');
+
+insert into links (catg, subcatg) values ('Fashion','Sunglasses');
+insert into links (catg, subcatg) values ('Fashion','Apparel');
+insert into links (catg, subcatg) values ('Fashion','Personal Accessories');
+insert into links (catg, subcatg) values ('Fashion','Ladies');
+insert into links (catg, subcatg) values ('Fashion','Men''s');
+insert into links (catg, subcatg) values ('Fashion','Sets');
+insert into links (catg, subcatg) values ('Fashion','Hot List Fragrances');
+insert into links (catg, subcatg) values ('Fashion','Marc Jacobs');
+insert into links (catg, subcatg) values ('Fashion','Handbags &amp; Totes');
+insert into links (catg, subcatg) values ('Fashion','Luggage');
+insert into links (catg, subcatg) values ('Fashion','Briefbags');
+insert into links (catg, subcatg) values ('Fashion','Jewelry');
+insert into links (catg, subcatg) values ('Fashion','Watches');
+insert into links (catg, subcatg) values ('Fashion','Cosmetics');
+insert into links (catg, subcatg) values ('Fashion','Accessories');
+insert into links (catg, subcatg) values ('Fashion','Bath &amp; Body');
+insert into links (catg, subcatg) values ('Fashion','Dental Care');
+insert into links (catg, subcatg) values ('Fashion','Grooming');
+insert into links (catg, subcatg) values ('Fashion','Massagers');
+insert into links (catg, subcatg) values ('Fashion','Scales');
+insert into links (catg, subcatg) values ('Fashion','Skincare');
+insert into links (catg, subcatg) values ('Fashion','Norelco');
+insert into links (catg, subcatg) values ('Fashion','Bliss');
+insert into links (catg, subcatg) values ('Fashion','Sonicare');
+insert into links (catg, subcatg) values ('Fashion','Face Stockholm');
+insert into links (catg, subcatg) values ('Fashion','Conair');
+insert into links (catg, subcatg) values ('Fashion','Homedics');
+insert into links (catg, subcatg) values ('Fashion','Philips');
+
+insert into links (catg, subcatg) values ('Sporting','Cycling');
+insert into links (catg, subcatg) values ('Sporting','Pro-Form');
+insert into links (catg, subcatg) values ('Sporting','Watches');
+insert into links (catg, subcatg) values ('Sporting','Travel Fitness');
+insert into links (catg, subcatg) values ('Sporting','empower');
+insert into links (catg, subcatg) values ('Sporting','Performance Tracking');
+insert into links (catg, subcatg) values ('Sporting','Magellan Echo');
+insert into links (catg, subcatg) values ('Sporting','Apparel');
+insert into links (catg, subcatg) values ('Sporting','Cardio Training');
+insert into links (catg, subcatg) values ('Sporting','Elliptical');
+insert into links (catg, subcatg) values ('Sporting','Equipment');
+insert into links (catg, subcatg) values ('Sporting','Accessories');
+insert into links (catg, subcatg) values ('Sporting','Treadmills');
+insert into links (catg, subcatg) values ('Sporting','Yoga &amp; Pilates');
+insert into links (catg, subcatg) values ('Sporting','Vitamix');
+insert into links (catg, subcatg) values ('Sporting','Fitness Commitment');
+insert into links (catg, subcatg) values ('Sporting','VivoFit');
+insert into links (catg, subcatg) values ('Sporting','Hot Stuff');
+insert into links (catg, subcatg) values ('Sporting','Marriott Golf eGift Cards');
+insert into links (catg, subcatg) values ('Sporting','Golf Digest Hot List');
+insert into links (catg, subcatg) values ('Sporting','Drivers');
+insert into links (catg, subcatg) values ('Sporting','Hybrids');
+insert into links (catg, subcatg) values ('Sporting','Irons');
+insert into links (catg, subcatg) values ('Sporting','Woods');
+insert into links (catg, subcatg) values ('Sporting','Wedges');
+insert into links (catg, subcatg) values ('Sporting','Putters');
+insert into links (catg, subcatg) values ('Sporting','Sets');
+insert into links (catg, subcatg) values ('Sporting','Golf Balls');
+insert into links (catg, subcatg) values ('Sporting','GPS');
+insert into links (catg, subcatg) values ('Sporting','Accessories');
+insert into links (catg, subcatg) values ('Sporting','Bags &amp; Travel Covers');
+insert into links (catg, subcatg) values ('Sporting','Carts');
+insert into links (catg, subcatg) values ('Sporting','Apparel');
+insert into links (catg, subcatg) values ('Sporting','Golf Shoes');
+insert into links (catg, subcatg) values ('Sporting','Just for Her');
+insert into links (catg, subcatg) values ('Sporting','Adams');
+insert into links (catg, subcatg) values ('Sporting','Adidas');
+insert into links (catg, subcatg) values ('Sporting','Callaway');
+insert into links (catg, subcatg) values ('Sporting','Cleveland Golf');
+insert into links (catg, subcatg) values ('Sporting','Cobra');
+insert into links (catg, subcatg) values ('Sporting','Nike');
+insert into links (catg, subcatg) values ('Sporting','Odyssey');
+insert into links (catg, subcatg) values ('Sporting','Ping');
+insert into links (catg, subcatg) values ('Sporting','TaylorMade');
+insert into links (catg, subcatg) values ('Sporting','Titleist');
+insert into links (catg, subcatg) values ('Sporting','All Brands');
+insert into links (catg, subcatg) values ('Sporting','Callaway Big Bertha');
+insert into links (catg, subcatg) values ('Sporting','Bushnell');
+insert into links (catg, subcatg) values ('Sporting','Populr Golf Visa Prepaid Card');
+insert into links (catg, subcatg) values ('Sporting','ATVs');
+insert into links (catg, subcatg) values ('Sporting','Baseball\Softball');
+insert into links (catg, subcatg) values ('Sporting','Basketball');
+insert into links (catg, subcatg) values ('Sporting','Bikes &amp; Accessories');
+insert into links (catg, subcatg) values ('Sporting','Boats &amp; Water Sports');
+insert into links (catg, subcatg) values ('Sporting','Camping');
+insert into links (catg, subcatg) values ('Sporting','Fishing');
+insert into links (catg, subcatg) values ('Sporting','Football');
+insert into links (catg, subcatg) values ('Sporting','Memorabilia');
+insert into links (catg, subcatg) values ('Sporting','Motorsports');
+insert into links (catg, subcatg) values ('Sporting','Outdoor Fitness');
+insert into links (catg, subcatg) values ('Sporting','Scooters');
+insert into links (catg, subcatg) values ('Sporting','Sets');
+insert into links (catg, subcatg) values ('Sporting','Skateboards');
+insert into links (catg, subcatg) values ('Sporting','Transportation');
+insert into links (catg, subcatg) values ('Sporting','Everything Water');
+insert into links (catg, subcatg) values ('Sporting','Tailgating');
+insert into links (catg, subcatg) values ('Sporting','Optics &amp; Scopes');
+insert into links (catg, subcatg) values ('Sporting','Motorcycles');
+insert into links (catg, subcatg) values ('Sporting','Other Sports');
+insert into links (catg, subcatg) values ('Sporting','Steiner');
+insert into links (catg, subcatg) values ('Sporting','Indian Motorcycles');
+
+insert into links (catg, subcatg) values ('Kids & Baby','Baby');
+insert into links (catg, subcatg) values ('Kids & Baby','Car Seats');
+insert into links (catg, subcatg) values ('Kids & Baby','Baby Essentials');
+insert into links (catg, subcatg) values ('Kids & Baby','Gear');
+insert into links (catg, subcatg) values ('Kids & Baby','Health &amp; Safety');
+insert into links (catg, subcatg) values ('Kids & Baby','Strollers');
+insert into links (catg, subcatg) values ('Kids & Baby','Baby Gadgets');
+insert into links (catg, subcatg) values ('Kids & Baby','Britax');
+insert into links (catg, subcatg) values ('Kids & Baby','Philips');
+insert into links (catg, subcatg) values ('Kids & Baby','Mud Pie');
+insert into links (catg, subcatg) values ('Kids & Baby','All Baby Items');
+insert into links (catg, subcatg) values ('Kids & Baby','Gift of Learning');
+insert into links (catg, subcatg) values ('Kids & Baby','Radio Control');
+insert into links (catg, subcatg) values ('Kids & Baby','Toys of the Season');
+insert into links (catg, subcatg) values ('Kids & Baby','Bikes, Scooters, Skateboards');
+insert into links (catg, subcatg) values ('Kids & Baby','Games');
+insert into links (catg, subcatg) values ('Kids & Baby','Kids Electronics');
+insert into links (catg, subcatg) values ('Kids & Baby','Outdoor Play');
+insert into links (catg, subcatg) values ('Kids & Baby','Toys');
+insert into links (catg, subcatg) values ('Kids & Baby','Lego');
+insert into links (catg, subcatg) values ('Kids & Baby','Mattel');
+insert into links (catg, subcatg) values ('Kids & Baby','Hello Kitty');
+insert into links (catg, subcatg) values ('Kids & Baby','Melissa &amp; Doug');
+insert into links (catg, subcatg) values ('Kids & Baby','Nabi');
+insert into links (catg, subcatg) values ('Kids & Baby','Wonderworld');
+insert into links (catg, subcatg) values ('Kids & Baby','Fisher Price');
+insert into links (catg, subcatg) values ('Kids & Baby','Gund');
+insert into links (catg, subcatg) values ('Kids & Baby','Leapfrog');
+insert into links (catg, subcatg) values ('Kids & Baby','Power Wheels');
+insert into links (catg, subcatg) values ('Kids & Baby','Razor');
+insert into links (catg, subcatg) values ('Kids & Baby','Step 2');
+insert into links (catg, subcatg) values ('Kids & Baby','All Brands');
+insert into links (catg, subcatg) values ('Kids & Baby','Hot Toy List');
+
+insert into links (catg, subcatg) values ('Hot Deals','Free Gift With Purchase');
+insert into links (catg, subcatg) values ('Hot Deals','Steals &amp; Deals');
+insert into links (catg, subcatg) values ('Hot Deals','Just Reduced');
+insert into links (catg, subcatg) values ('Hot Deals','TaylorMade Free Gift with Purchase');
+insert into links (catg, subcatg) values ('Hot Deals','Steals &amp; Deals');
+insert into links (catg, subcatg) values ('Hot Deals','Beauty &amp; Fragrance');
+insert into links (catg, subcatg) values ('Hot Deals','Electronics');
+insert into links (catg, subcatg) values ('Hot Deals','Fashion');
+insert into links (catg, subcatg) values ('Hot Deals','Home');
+insert into links (catg, subcatg) values ('Hot Deals','Outdoor Living');
+
+insert into links (catg, subcatg) values ('More','American Red Cross');
+insert into links (catg, subcatg) values ('More','Children''s Miracle Network');
+insert into links (catg, subcatg) values ('More','Habitat For Humanity');
+insert into links (catg, subcatg) values ('More','National Academy Foundation');
+insert into links (catg, subcatg) values ('More','The Youth Career Initiative');
+insert into links (catg, subcatg) values ('More','Giving Back');
+insert into links (catg, subcatg) values ('More','Going Green');
+insert into links (catg, subcatg) values ('More','Living Well');
+insert into links (catg, subcatg) values ('More','Healthy School Days');
+insert into links (catg, subcatg) values ('More','Electronics');
+insert into links (catg, subcatg) values ('More','Home');
+insert into links (catg, subcatg) values ('More','Sporting');
+insert into links (catg, subcatg) values ('More','Travel');
+insert into links (catg, subcatg) values ('More','Gadgets for Kids');
+insert into links (catg, subcatg) values ('More','Fashion Designers');
+insert into links (catg, subcatg) values ('More','Made in the USA');
+insert into links (catg, subcatg) values ('More','Crafts in the Kitchen');
+insert into links (catg, subcatg) values ('More','Inspired Tech');
+insert into links (catg, subcatg) values ('More','New Classics');
+insert into links (catg, subcatg) values ('More','Smart Home');
+insert into links (catg, subcatg) values ('More','Personal Finance');
+insert into links (catg, subcatg) values ('More','Travel');
+insert into links (catg, subcatg) values ('More','Spring Jewelry');
+insert into links (catg, subcatg) values ('More','Cyber Security');
+insert into links (catg, subcatg) values ('More','Back to School');
+insert into links (catg, subcatg) values ('More','National Golf Month');
+insert into links (catg, subcatg) values ('More','Girlfriends Getaway');
+insert into links (catg, subcatg) values ('More','Fall Fashion');
+insert into links (catg, subcatg) values ('More','Labor Day');
+insert into links (catg, subcatg) values ('More','Tailgating');
+insert into links (catg, subcatg) values ('More','Eat Better');
+insert into links (catg, subcatg) values ('More','Gifts for Her');
+insert into links (catg, subcatg) values ('More','Gifts for Him');
+insert into links (catg, subcatg) values ('More','Congratulations');
+insert into links (catg, subcatg) values ('More','Gifts for Tweens');
+insert into links (catg, subcatg) values ('More','Mud Pie');
+insert into links (catg, subcatg) values ('More','Lilly Pulitzer');
+insert into links (catg, subcatg) values ('More','Kate Spade');
+insert into links (catg, subcatg) values ('More','Affordable Gifts');
+insert into links (catg, subcatg) values ('More','Occasion');
+insert into links (catg, subcatg) values ('More','Personalized Gifts');
+insert into links (catg, subcatg) values ('More','Travel Essentials');
+insert into links (catg, subcatg) values ('More','Godiva');
+insert into links (catg, subcatg) values ('More','Lobster Gram');
+insert into links (catg, subcatg) values ('More','Omaha Steaks');
+insert into links (catg, subcatg) values ('More','Wine Galaxy');
+insert into links (catg, subcatg) values ('More','Red Hot Gifts');
+insert into links (catg, subcatg) values ('More','Gifts for the Kids');
+insert into links (catg, subcatg) values ('More','Conair TravelSmart');
+insert into links (catg, subcatg) values ('More','Holiday');
+
+insert into links (catg, subcatg) values ('Featured Brands','Bose');
+insert into links (catg, subcatg) values ('Featured Brands','Dyson');
+insert into links (catg, subcatg) values ('Featured Brands','Apple');
+insert into links (catg, subcatg) values ('Featured Brands','Samsung');
+insert into links (catg, subcatg) values ('Featured Brands','Lg');
+insert into links (catg, subcatg) values ('Featured Brands','Nikon');
+insert into links (catg, subcatg) values ('Featured Brands','Toshiba');
+insert into links (catg, subcatg) values ('Featured Brands','Cuisinart');
+insert into links (catg, subcatg) values ('Featured Brands','Keurig');
+insert into links (catg, subcatg) values ('Featured Brands','Taylormade');
+insert into links (catg, subcatg) values ('Featured Brands','Nike');
+insert into links (catg, subcatg) values ('Featured Brands','Michael-Kors');
+insert into links (catg, subcatg) values ('Featured Brands','Vera-Bradley');
+insert into links (catg, subcatg) values ('Featured Brands','Avery-Harper');
+insert into links (catg, subcatg) values ('Featured Brands','Callaway');
+insert into links (catg, subcatg) values ('Featured Brands','Kitchenaid');
+insert into links (catg, subcatg) values ('Featured Brands','Sodastream');
+insert into links (catg, subcatg) values ('Featured Brands','Sony');
+insert into links (catg, subcatg) values ('Featured Brands','Garmin');
+insert into links (catg, subcatg) values ('Featured Brands','Kate-Spade');
+
+
