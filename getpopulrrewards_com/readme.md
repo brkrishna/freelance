@@ -2,6 +2,7 @@ How this works
 ==============
 
 Navigates through each menu link and scrapes all categories for products, also has the provision to persist product images
+Data is stored into a sqlite3 database
 
 Pre-requisites
 ==============
