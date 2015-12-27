@@ -1,16 +1,14 @@
-How this works
-==============
+# How this works
 
 Navigates through each menu link and scrapes all categories for products, also has the provision to persist product images
 Data is stored into a sqlite3 database
 
-Pre-requisites
-==============
+## Pre-requisites
 
 * Selenium webdriver
 * BeautifulSoup
 
-Other built in packages used
+## Other built in packages used
 * urllib
 * time
 
