@@ -1,2 +1,2 @@
 # Freelance
-Utilties developed as part of freelancing initiaties
+Utilties and applications developed as part of freelancing initiaties
