@@ -2,6 +2,7 @@ How this works
 ==============
 
 Given a business name, this script parses addresses.com and returns the address, phone, city, state and zip
+
 Pre-requisites
 ==============
 
