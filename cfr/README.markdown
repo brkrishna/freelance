@@ -14,4 +14,4 @@ Evalutaion tool to assess based on Code of Federal Regulations, Part 11, quick p
 - More Dashboards
 
 ## Technology stack
-- Code Igniter, MySQL
+- PHP Code Igniter, MySQL
