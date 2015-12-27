@@ -1,0 +1,15 @@
+[19-Jul-2015 06:52:44] PHP Fatal error:  Call to undefined function  js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[19-Jul-2015 06:52:49] PHP Fatal error:  Class 'Assets' not found in /home/procxlco/public_html/app/public/themes/admin/partials/_header.php on line 2
+[21-Jul-2015 16:56:40] PHP Fatal error:  Class 'Assets' not found in /home/procxlco/public_html/app/public/themes/admin/partials/_header.php on line 2
+[21-Jul-2015 19:20:38] PHP Fatal error:  Call to undefined function  js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[03-Aug-2015 21:52:34] PHP Fatal error:  Call to undefined function  js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[03-Aug-2015 21:52:39] PHP Fatal error:  Class 'Assets' not found in /home/procxlco/public_html/app/public/themes/admin/partials/_header.php on line 2
+[18-Aug-2015 19:46:10] PHP Fatal error:  Call to undefined function  js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[19-Aug-2015 16:36:11] PHP Fatal error:  Call to undefined function  js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[19-Aug-2015 16:36:16] PHP Fatal error:  Class 'Assets' not found in /home/procxlco/public_html/app/public/themes/admin/partials/_header.php on line 2
+[04-Sep-2015 17:34:19] PHP Fatal error:  Class 'Assets' not found in /home/procxlco/public_html/app/public/themes/admin/partials/_header.php on line 2
+[04-Sep-2015 17:34:24] PHP Fatal error:  Call to undefined function  js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[20-Sep-2015 16:49:26 Etc/GMT] PHP Fatal error:  Call to undefined function js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[20-Sep-2015 16:49:32 Etc/GMT] PHP Fatal error:  Class 'Assets' not found in /home/procxlco/public_html/app/public/themes/admin/partials/_header.php on line 2
+[22-Oct-2015 06:19:54 Etc/GMT] PHP Fatal error:  Call to undefined function js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
+[23-Oct-2015 14:13:11 Etc/GMT] PHP Fatal error:  Call to undefined function js_path() in /home/procxlco/public_html/app/public/themes/admin/partials/_footer.php on line 11
