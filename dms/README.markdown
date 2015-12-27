@@ -21,4 +21,4 @@ To track documents, inquiries and all the good stuff including samples
 - More Dashboards
 
 ## Technology stack
-- Code Igniter, Bonfire, MySQL
+- PHP Code Igniter, Bonfire, MySQL
