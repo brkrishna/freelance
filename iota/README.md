@@ -1,2 +1,2 @@
 # Indian Open Technology Alliance (iota) website
-Developed based on drupal 7
+Developed drupal 7 CMS
