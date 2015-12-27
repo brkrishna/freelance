@@ -1,0 +1,270 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"rcv",
+				"rcvd_dt"
+			],
+			[
+				"product",
+				"product_id"
+			],
+			[
+				"party",
+				"party_documents_model"
+			],
+			[
+				"produ",
+				"products_model"
+			],
+			[
+				"ing",
+				"ingredient_name"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "application/modules/products/views/content/details.php",
+			"settings":
+			{
+				"buffer_size": 1624,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/wamp/www/oicp",
+		"/C/wamp/www/oicp/application",
+		"/C/wamp/www/oicp/application/modules",
+		"/C/wamp/www/oicp/application/modules/party_documents",
+		"/C/wamp/www/oicp/application/modules/party_documents/views",
+		"/C/wamp/www/oicp/application/modules/party_documents/views/content",
+		"/C/wamp/www/oicp/application/modules/product_documents",
+		"/C/wamp/www/oicp/application/modules/product_documents/views",
+		"/C/wamp/www/oicp/application/modules/product_documents/views/content",
+		"/C/wamp/www/oicp/application/modules/products",
+		"/C/wamp/www/oicp/application/modules/products/views",
+		"/C/wamp/www/oicp/application/modules/products/views/content",
+		"/C/wamp/www/oicp/application/views",
+		"/C/wamp/www/oicp/application/views/home",
+		"/C/wamp/www/oicp/public",
+		"/C/wamp/www/oicp/public/themes",
+		"/C/wamp/www/oicp/public/themes/default"
+	],
+	"file_history":
+	[
+		"/C/wamp/www/oicp/application/views/home/index.php",
+		"/C/wamp/www/oicp/public/themes/default/footer.php",
+		"/C/wamp/www/oicp/application/modules/products/views/content/listing.php",
+		"/C/wamp/www/oicp/application/config/config.php",
+		"/var/www/html/oicp/application/modules/products/controllers/content.php",
+		"/var/www/html/oicp/application/modules/products/controllers/products.php",
+		"/var/www/html/oicp/application/views/admin/content/index.php",
+		"/var/www/html/oicp/application/modules/products/views/content/listing.php",
+		"/var/www/html/oicp/application/modules/products/views/content/details.php",
+		"/var/www/html/oicp/application/modules/party_documents/models/party_documents_model.php",
+		"/var/www/html/oicp/application/modules/party/views/content/create.php",
+		"/var/www/html/oicp/application/modules/party/views/content/edit.php",
+		"/var/www/html/oicp/application/modules/party/controllers/content.php",
+		"/var/www/html/oicp/application/modules/products/migrations/002_Install_products.php",
+		"/var/www/html/oicp/application/modules/product_documents/models/product_documents_model.php",
+		"/var/www/html/oicp/application/modules/products/models/products_model.php",
+		"/var/www/html/oicp/application/modules/products/views/content/index.php",
+		"/var/www/html/oicp/application/modules/party_documents/views/content/create.php",
+		"/var/www/html/oicp/application/modules/product_documents/views/content/create.php",
+		"/var/www/html/oicp/public/themes/default/header.php",
+		"/var/www/html/oicp/application/views/home/index.php",
+		"/var/www/html/oicp/public/themes/admin/index.php",
+		"/var/www/html/oicp/public/themes/admin/header.php",
+		"/var/www/html/oicp/application/modules/product_documents/controllers/content.php",
+		"/var/www/html/oicp/application/modules/party_documents/controllers/content.php",
+		"/var/www/html/oicp/application/modules/ingredients/models/ingredients_model.php",
+		"/var/www/html/oicp/application/modules/party_documents/views/content/index.php",
+		"/var/www/html/oicp/application/modules/party_documents/views/content/edit.php",
+		"/var/www/html/oicp/application/modules/party_documents/language/english/party_documents_lang.php",
+		"/var/www/html/oicp/application/modules/party_documents/migrations/002_Install_party_documents.php",
+		"/var/www/html/oicp/application/config/config.php",
+		"/var/www/html/oicp/application/modules/party/models/party_model.php",
+		"/home/ramakrishna/odesk/asefibrokers_com/data_struct.sql",
+		"/home/ramakrishna/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/ramakrishna/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"samples"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"products"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "application/modules/products/views/content/details.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1624,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								148,
+								148
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "oicp.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 203.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

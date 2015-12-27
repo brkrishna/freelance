@@ -1,0 +1,304 @@
+/*
+    Document   : sristibiosciences_com/public/css/custom.css
+    Created on : 2015-05-19 07:36 AM
+    Author     : ramakrishna
+    Description:
+    Purpose of the stylesheet follows.
+    To change this template use Tools | Templates.
+*/
+
+*{
+    font-family: '', 'Open Sans', sans-serif;
+    font-size:1.0em;
+    font-weight: 400;
+}
+.background{
+    background-color:#f9f9f9;
+}
+.breadcrumb_style{
+    font-size:.85em;
+    font-weight:300;
+}
+div.left{
+    float:left;
+    clear:left;
+}
+div.right{
+    float:right;
+    clear:right;
+}
+.npl{
+    background-color:#fff;
+    width: 200px;
+    height: 200px;
+    border:1px solid #b2b2ae;
+    border-radius:15px;
+    font-size:2em;
+    transition: background 1s;
+    padding:20px;
+    margin:10px;
+}
+.npl:hover{
+    background-color:#a0e8a7;
+}
+.npl > a{
+    color:#105BA7;
+    font-weight:800;
+}
+.npl > a:hover{
+    text-decoration:none;
+    color:#fff;
+}
+.footer{
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  color:#fff;  
+  background-color: #105BA7;
+}
+.footer {
+    color:#fff;
+}
+.leftmenu{
+    padding:20px;
+    background: -webkit-linear-gradient(left, #fff, #9cb8d3); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #fff, #9cb8d3); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #fff, #9cb8d3); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #fff, #9cb8d3); /* Standard syntax (must be last) */
+    border-bottom: 0px solid #a3a397;
+    border-top: 0px solid #a3a397;
+    border-left: 0px solid #a3a397;
+    text-align:justify;
+}
+div.prod_list{
+    background-color:#9cbaa3;
+    margin:10px;
+    padding:15px;
+    color:#fff;
+    height:relative;
+    float:left;
+}
+div.prod_list:hover{
+    background-color:#125923;
+    color:#fff;
+}
+div.prod_list > a{
+    font-weight:800;
+    color:#fff;
+}
+div.prod_list > a:hover{
+    text-decoration:none;
+    color:#fff;
+}
+
+.footer a{
+    color:#fff
+}
+.footer a:hover{
+    text-decoration:underline;
+}
+.nav > li > a{
+    font-weight:bolder;
+    color:#0c2d9b;
+}
+.navbar-custom {
+    color: #FFFFFF;
+    background-color: #f5f5f5;
+    font-size:1.02em;
+    font-weight:600;
+    margin-bottom:0px;
+}
+.service {
+  background: #FFF;
+  margin: 30px 10px;
+  padding: 30px 20px;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  color: 3px 3px 5px #999;
+  text-align:justify;
+}
+.service-wrapper {
+  background: #FFF;
+  margin: 30px 10px;
+  padding: 30px 20px;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 3px #999;
+  -moz-box-shadow: 0 0 3px #999;
+  box-shadow: 0 0 3px #999;
+  color: 3px 3px 5px #999;
+  text-align:justify;
+}
+.service-wrapper:hover {
+  background: #FFF;
+  margin: 30px 10px;
+  padding: 30px 20px;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  background-clip: padding-box;
+  -webkit-box-shadow: 7px 7px 10px 10px #707070;
+  -moz-box-shadow: 7px 7px 10px 10px #707070;
+  box-shadow: 7px 7px 10px 10px #707070;
+  color: 3px 3px 5px #999;
+  text-align:justify;
+}
+.service-wrapper h3 {
+  font-size: 1.2em;
+  margin: 10px 0 !important;
+}
+.service-wrapper p {
+  margin-top: 0;
+  font-weight:400;
+}
+.panel{
+  #box-shadow: 7px 7px 10px #707070;
+  color: 3px 3px 5px #999;
+  text-align:justify;   
+}
+.panel-heading  h2.panel-title{
+    font-weight:800;
+}
+/*Caraousel captions */
+.carousel-caption{
+    color:#fff;
+    margin: 2px;
+    top:0px;
+    left:5px;
+    font-size:1.4em;
+    line-height:125%;
+}
+.dd{
+    color:#000;
+    top:70%;
+    left:25px;
+    background-color:#D8D8D8;
+    filter:alpha(opacity=100);
+    opacity:10;
+    width:35%;
+ }
+.ch{
+    color:#000;
+    top:70%;
+    left:25px;
+    background-color:#D8D8D8;
+    filter:alpha(opacity=100);
+    opacity:10;
+    width:40%;
+}
+.ani{
+    color:#000;
+    top:75%;
+    left:25px;
+    background-color:#D8D8D8;
+    filter:alpha(opacity=100);
+    opacity:10;
+    width:35%;
+    height:20%;
+}
+.len{
+    top:70%;
+    left:25px;
+    background-color:#000;
+    filter:alpha(opacity=90);
+    opacity:0.9;
+    width:25%;
+}
+
+/* End of Caraousel captions */
+
+body{
+    margin:0px;
+}
+.carousel-inner {
+  position: relative;
+  width:80%;
+  margin-left:13%;
+  overflow: hidden;
+}
+.slider{
+    color:white;
+}
+.mol{
+    font-family:'Open Sans', sans-serif;
+    font-size:0.90em;
+    text-align:center;
+    color:#000;
+}
+.mol .label {
+    font-weight:bold;    
+}
+.mol .data {
+}
+li{
+    list-style-type:none;
+}
+.breadcrumb{
+    padding:2px;
+}
+
+/*Tag cloud*/
+/*
+  Tag cloud
+*/
+
+#tags ul{
+    margin:1em 0;
+    padding:.5em 10px;
+    text-align:center;
+    background:#fff;		
+}
+#tags li{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:inline;
+}
+#tags li a{
+    text-decoration:none;
+    color:maroon;
+    padding:0 2px;	
+}
+#tags li a:hover{	
+    color:steelblue;
+}		
+
+.tag1{font-size:100%;}
+.tag2{font-size:150%;}
+.tag3{font-size:200%;}
+.tag4{font-size:250%;}
+.tag5{font-size:400%;}
+
+/* alternative layout */
+
+#tags .alt{
+    text-align:left;
+    padding:0;
+    background:none;
+}
+#tags .alt li{
+    padding:2px 10px;
+    background:#efefef;
+    display:block;
+}
+#tags .alt .tag1, 
+#tags .alt .tag2, 
+#tags .alt .tag3, 
+#tags .alt .tag4, 
+#tags .alt .tag5{font-size:100%;}
+#tags .alt .tag1{background:#7cc0f4;}
+#tags .alt .tag2{background:#67abe0;}
+#tags .alt .tag3{background:#4d92c7;}
+#tags .alt .tag4{background:#3277ad;}
+#tags .alt .tag5{background:#266ca2;}
+/*End of Tag Cloud*/
