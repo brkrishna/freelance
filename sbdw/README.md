@@ -8,3 +8,5 @@ This portal developed using Codeigniter lists the natural compound libraries of 
 * Microbicules
 * Biotransformations with Substrates and Metabolites
 
+## Technology stack
+* PHP Code Igniter, MySQL
