@@ -74,14 +74,10 @@ def main():
                             pass
                         records.append(name + "," + role + "," + org + "," + location + "," + industry + "\n")
                     try:
-                        print("in try")
                         next_page = d.find_element_by_partial_link_text('Next')
-                        print("found next page")
                         next_page.click()
-                        print("clicked")
                         time.sleep(random.randint(MIN_WAIT,MAX_WAIT))
                         tree = BeautifulSoup(d.page_source, "html.parser")
-                        print("parsed tree")
                     except:
                         tree = None
                         pass
