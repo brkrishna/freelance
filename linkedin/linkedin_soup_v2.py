@@ -11,7 +11,6 @@
 #-------------------------------------------------------------------------------
 from selenium import webdriver # - Can leverage Firefox / PhantomJS
 from selenium.webdriver.common.keys import Keys #Used to simulate user typing in search box
-#from lxml import html # to parse members list from html page
 from bs4 import BeautifulSoup #Using BS4 instead of lxml - customer is king :-)
 import time, random, os, re #time - for delay to allow pages to load, random - to generate random wait time,
                         #os - get Operating system handle, re - regular expressions to read amounts from text
@@ -51,13 +50,7 @@ def main():
                 tree = BeautifulSoup(d.page_source, "html.parser") #the default parser
                 #Loop through for all pages as long as you have records
                 records = []
-                counter = 4
                 while tree != None:
-                    #Loop only for 3 pages, to test
-                    counter -= 1
-                    if counter == 0:
-                        tree = None
-                        continue
                     
                     user_details = tree.find_all('div', {'class':'bd'})
                     for user in user_details:
@@ -81,11 +74,14 @@ def main():
                             pass
                         records.append(name + "," + role + "," + org + "," + location + "," + industry + "\n")
                     try:
-                        logger.debug("Parsing members for company - " + company.replace("\n",""))
+                        print("in try")
                         next_page = d.find_element_by_partial_link_text('Next')
+                        print("found next page")
                         next_page.click()
-                        time.sleep(random.randint(min_wait,max_wait))
-                        tree = html.fromstring(d.page_source)
+                        print("clicked")
+                        time.sleep(random.randint(MIN_WAIT,MAX_WAIT))
+                        tree = BeautifulSoup(d.page_source, "html.parser")
+                        print("parsed tree")
                     except:
                         tree = None
                         pass
