@@ -1,4 +1,4 @@
-# -- coding: utf-8 --
+# _*_ coding:utf-8 _*_
 #-------------------------------------------------------------------------------
 # Name:         linkedin
 # Purpose:      Parse linked in given a list of companies and write users to a csv file
@@ -14,12 +14,13 @@ from selenium.webdriver.common.keys import Keys #Used to simulate user typing in
 from bs4 import BeautifulSoup #Using BS4 instead of lxml - customer is king :-)
 import time, random, os, re #time - for delay to allow pages to load, random - to generate random wait time,
                         #os - get Operating system handle, re - regular expressions to read amounts from text
+import html #clean up special characters
 
 BASE_URL = 'http://linkedin.com'
 USER_ID = ''
 PASSWD = ''
-MIN_WAIT = 2
-MAX_WAIT = 5
+MIN_WAIT = 3
+MAX_WAIT = 6
 
 def main():
     d = None
@@ -51,28 +52,29 @@ def main():
                 #Loop through for all pages as long as you have records
                 records = []
                 while tree != None:
-                    
+                    time.sleep(random.randint(MIN_WAIT,MAX_WAIT))
                     user_details = tree.find_all('div', {'class':'bd'})
                     for user in user_details:
                         name = role = org = location = industry = ''
                         row = {}
                         try:
-                            name = user.find('h3').find('a').text
+                            name = '"' + "{0}".format(user.find('h3').find('a').text.encode('ascii','ignore').decode('utf-8')) + '"'
                             #TODO - Can derive the level of connection with rest of the temp value
                         except:
                             continue #We cannot do anything without name, so move on to next record
                         try:
-                            temp = user.find('div', {'class':'description'}).text
+                            temp = "{0}".format(user.find('div', {'class':'description'}).text.encode('ascii','ignore').decode('utf-8'))
                             role = '"' + temp[:temp.find("at")].strip() + '"'
                             org = '"' + temp[temp.find("at")+2:].strip() + '"'
                         except:
                             continue #We cannot do anything without role, so move on to next record
                         try:
-                            location = '"' + user.find('dl',{'class':'demographic'}).find_all('dd')[0].text
-                            industry = '"' + user.find('dl',{'class':'demographic'}).find_all('dd')[1].text
+                            location = '"' + "{0}".format(user.find('dl',{'class':'demographic'}).find_all('dd')[0].text.encode('ascii','ignore').decode('utf-8')) + '"'
+                            industry = '"' + "{0}".format(user.find('dl',{'class':'demographic'}).find_all('dd')[1].textencode('ascii','ignore').decode('utf-8')) + '"'
                         except:
                             pass
                         records.append(name + "," + role + "," + org + "," + location + "," + industry + "\n")
+                    tree = None
                     try:
                         next_page = d.find_element_by_partial_link_text('Next')
                         next_page.click()
