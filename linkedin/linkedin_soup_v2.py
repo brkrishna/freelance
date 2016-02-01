@@ -47,7 +47,7 @@ def main():
                 d.find_element_by_id('main-search-box').send_keys(company.replace("\n",""))
                 d.find_element_by_name('search').click()
                 time.sleep(random.randint(MIN_WAIT,MAX_WAIT))
-                
+                os.system("pause")
                 tree = BeautifulSoup(d.page_source, "html.parser") #the default parser
                 #Loop through for all pages as long as you have records
                 records = []
