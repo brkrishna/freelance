@@ -25,21 +25,21 @@ MAX_WAIT = 6
 def main():
     d = None
     try:
-        
+
         companies = set(open('companies').readlines())
         if os.path.isfile('companies_done'):
             finished_companies = set(open('companies_done').readlines())
             companies -= finished_companies
-        
+
         d = webdriver.Firefox()
-        
+
         d.get(BASE_URL)
-        
+
         d.find_element_by_id('login-email').send_keys(USER_ID)
         d.find_element_by_id('login-password').send_keys(PASSWD)
         d.find_element_by_name('submit').click()
         time.sleep(random.randint(MIN_WAIT,MAX_WAIT))
-        
+
         d.find_element_by_id('main-search-box').clear()
         for company in companies:
             try:
@@ -55,7 +55,7 @@ def main():
                     time.sleep(random.randint(MIN_WAIT,MAX_WAIT))
                     user_details = tree.find_all('div', {'class':'bd'})
                     for user in user_details:
-                        name = role = org = location = industry = ''
+                        name = role = org = location = industry = public_url = ''
                         row = {}
                         try:
                             name = '"' + "{0}".format(user.find('h3').find('a').text.encode('ascii','ignore').decode('utf-8')) + '"'
@@ -64,16 +64,24 @@ def main():
                             continue #We cannot do anything without name, so move on to next record
                         try:
                             temp = "{0}".format(user.find('div', {'class':'description'}).text.encode('ascii','ignore').decode('utf-8'))
-                            role = '"' + temp[:temp.find("at")].strip() + '"'
-                            org = '"' + temp[temp.find("at")+2:].strip() + '"'
+                            if temp.rfind('at') > 0:
+                                role = '"' + temp[:temp.find("at")].strip() + '"'
+                                org = '"' + temp[temp.find("at")+2:].strip() + '"'
+                            else:
+                                role = '"' + temp.strip() + '"'
                         except:
                             continue #We cannot do anything without role, so move on to next record
                         try:
                             location = '"' + "{0}".format(user.find('dl',{'class':'demographic'}).find_all('dd')[0].text.encode('ascii','ignore').decode('utf-8')) + '"'
-                            industry = '"' + "{0}".format(user.find('dl',{'class':'demographic'}).find_all('dd')[1].textencode('ascii','ignore').decode('utf-8')) + '"'
+                            industry = '"' + "{0}".format(user.find('dl',{'class':'demographic'}).find_all('dd')[1].text.encode('ascii','ignore').decode('utf-8')) + '"'
                         except:
                             pass
-                        records.append(name + "," + role + "," + org + "," + location + "," + industry + "\n")
+                        try:
+                            public_url = '"' + user.find('a', {'class':'title main-headline'}).get('href') + '"'
+                        except:
+                            pass
+
+                        records.append(name + "," + role + "," + org + "," + location + "," + industry + "," + public_url +  "\n")
                     tree = None
                     try:
                         next_page = d.find_element_by_partial_link_text('Next')
@@ -83,13 +91,13 @@ def main():
                     except:
                         tree = None
                         pass
-                    
+
                 file_name = company.replace("\n","").replace(" ", "_").lower()
                 wrote_header = False
-                
+
                 if os.path.isfile(file_name + '.csv'): #file exists don't write header
                     wrote_header = True
-                    
+
                 with open(file_name + '.csv', 'a') as f:
                     for record in records:
                         if wrote_header == False:
@@ -103,7 +111,7 @@ def main():
             finally:
                 with open('companies_done','a') as f:
                     f.write(company)
-                
+
     except Exception as e:
         print(e.__doc__)
         print(e.args)
