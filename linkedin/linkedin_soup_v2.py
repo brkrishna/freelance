@@ -16,9 +16,9 @@ import time, random, os, re #time - for delay to allow pages to load, random - t
                         #os - get Operating system handle, re - regular expressions to read amounts from text
 import html #clean up special characters
 
-BASE_URL = 'http://linkedin.com'
-USER_ID = ''
-PASSWD = ''
+BASE_URL = 'http://www.linkedin.com'
+USER_ID = 'brkrishna@gmail.com'
+PASSWD = 'parimala32'
 MIN_WAIT = 3
 MAX_WAIT = 6
 
@@ -64,11 +64,14 @@ def main():
                             continue #We cannot do anything without name, so move on to next record
                         try:
                             temp = "{0}".format(user.find('div', {'class':'description'}).text.encode('ascii','ignore').decode('utf-8'))
-                            if temp.rfind('at') > 0:
-                                role = '"' + temp[:temp.find("at")].strip() + '"'
-                                org = '"' + temp[temp.find("at")+2:].strip() + '"'
-                            else:
+                            try:
+                                output = re.search(r'\b(at)\b', temp)
+                                if output.start() > 0:
+                                    role = '"' + temp[:output.start()].strip() + '"'
+                                    org = '"' + temp[output.start()+2:].strip() + '"'
+                            except AttributeError:
                                 role = '"' + temp.strip() + '"'
+                                pass
                         except:
                             continue #We cannot do anything without role, so move on to next record
                         try:
@@ -101,7 +104,7 @@ def main():
                 with open(file_name + '.csv', 'a') as f:
                     for record in records:
                         if wrote_header == False:
-                            f.write("name, role, org, location, industry" + "\n")
+                            f.write("name, role, org, location, industry, public_url" + "\n")
                             wrote_header = True
                         f.write(record)
 
