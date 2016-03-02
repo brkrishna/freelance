@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Name:        downloader
-# Purpose:
+# Purpose:     To downlaod a list of files   
 #
 # Author:      Ramakrishna
 #
@@ -11,7 +11,7 @@
 
 import pycurl, os
 
-DOWNLOAD_PATH = "C:\\upwork\\downloader\\"
+DOWNLOAD_PATH = "/home/ramakrishna/projects/freelance/downloader/"
 
 '''
 Logging temporarily for debug purposes, can be removed once the script is stable or integrated with other code
@@ -33,28 +33,40 @@ logger.addHandler(fh)
 def main():
     try:
         #Reading urls to be downloaded
-        urls = open('urls').readlines()
+        urls = set(open('urls').readlines())
 
         #This could be running in a batch, remove what has been downloaded
         if os.path.isfile('urls_done'):
-            finished_urls = open('urls_done').readlines()
+            finished_urls = set(open('urls_done').readlines())
             urls -= finished_urls
 
         c = pycurl.Curl()
 
         for url in urls:
             try:
-                #Construct a unique filename with appropriate replacements . -> _, / -> $, : -> -
-                file_name = url.replace(".", "_").replace("/", "$").replace(":", "-")
-                f = open(DOWNLOAD_PATH + "\\" + file_name, 'wb')
+                #remove new line
+                url = url.replace("\n", "")
+                
+                #Construct a unique filename with appropriate replacements . -> _, / -> -, = -> $
+                file_name = url[url.rfind("://")+3:]
+                file_name = file_name.replace(".", "_").replace("/", "-").replace("=", "$")
+                
+                f = open(DOWNLOAD_PATH + file_name, 'wb')
                 c.setopt(pycurl.URL, url)
                 c.setopt(pycurl.VERBOSE, True)
-                c.setopt(c.WRITEDATA, f)
+                c.setopt(pycurl.WRITEDATA, f)
+                c.setopt(pycurl.FOLLOWLOCATION, 1)
+                c.setopt(pycurl.NOPROGRESS, 0)
+                c.setopt(pycurl.TIMEOUT, 300)
+                c.setopt(pycurl.MAXREDIRS, 5)
+                c.setopt(pycurl.NOSIGNAL, 1)
                 try:
                     c.perform()
-                except pycurl.error as e:
-                    logger.debug("Failed to download - " + url + ", with the following error - " + e.args[0])
-                    pass
+                except (pycurl.error, KeyboardInterrupt, SystemExit, Exception) as e: 
+                    logger.debug("Interrupted or Failed to download - " + url + ", with the following error - " + e.args[0])
+                    if os.path.exists(DOWNLOAD_PATH + file_name):
+                        os.remove(DOWNLOAD_PATH + file_name)                    
+                    f.close()
 
                 total_time = c.getinfo(pycurl.TOTAL_TIME)
                 download_size = c.getinfo(pycurl.SIZE_DOWNLOAD)

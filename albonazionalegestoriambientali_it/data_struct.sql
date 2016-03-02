@@ -1,3 +1,9 @@
+drop table if exists impresas;
+create table if not exists impresas(
+	impresa	varchar(255) not null primary key,
+	created timestamp not null default current_timestamp
+);
+
 drop table if exists companies;
 create table if not exists companies(
 	impresa	varchar(255) not null primary key,
@@ -47,4 +53,4 @@ create table if not exists media_list(
 	catg_attive varchar(255),
 	raw_text text,
 	created timestamp not null default current_timestamp	
-);
+);	
