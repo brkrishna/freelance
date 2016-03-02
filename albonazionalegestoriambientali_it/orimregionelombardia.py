@@ -7,7 +7,6 @@ base_url = 'http://www.orimregionelombardia.it/'
 
 def main():
 	try:
-
 		headers = {'User-Agent': 'Mozilla/5.0'}
 		r = requests.get(url, headers=headers)
 		tree = html.fromstring(r.content)
@@ -16,84 +15,89 @@ def main():
 		rows = []
 		for anchor in anchors:
 			link = base_url + anchor
+			print(link)
 			r2 = requests.get(link, headers=headers)
 			tree2 = html.fromstring(r2.content)
 			trs = tree2.xpath("//table//tr")
 
-            '''
-C:\Python27\python.exe "C:\Program Files (x86)\JetBrains\PyCharm Community Edition 5.0.4\helpers\pydev\pydevconsole.py" 60435 60436
-PyDev console: starting.
+			row = {}
+			try:
+				row['title'] = tree2.xpath("//div[@id='divContenuti']/h1/text()")[0].strip()
+			except:
+				row['title'] = ''
+				pass
+			try:
+				temp = tree2.xpath("//table[@class='no_border']/td//text()[normalize-space()]")
+				try:
+					idx = temp.index("Indirizzo")
+					if idx >= 0:
+						row['indirizzo'] = temp[idx+1]
+				except:
+					row['indirizzo'] = ''
+					pass
+				try:
+					idx = temp.index("Telefono Principale")
+					if idx >= 0:
+						row['telefono_principale'] = temp[idx+1]
+				except:
+					row['telefono_principale'] = ''
+					pass
+				try:
+					idx = temp.index("Fax")
+					if idx >= 0:
+						row['fax'] = temp[idx+1]
+				except:
+					row['fax'] = ''
+					pass
+				try:
+					idx = temp.index("Email principale")
+					if idx >= 0:
+						row['email_principale'] = temp[idx+1]
+				except:
+					row['email_principale'] = ''
+					pass
+				try:
+					idx = temp.index("Nazionalità prevalente degli associati")
+					if idx >= 0:
+						row['nazionalit_prevalente_degli_associati'] = temp[idx+1]
+				except:
+					row['nazionalit_prevalente_degli_associati'] = ''
+					pass
+				try:
+					idx = temp.index("Presidente")
+					if idx >= 0:
+						row['presidente'] = temp[idx+1]
+				except:
+					row['presidente'] = ''
+					pass
+				try:
+					idx_start = temp.index("Presidente")
+					idx_end = temp.index("Obiettivi")
 
-import sys; print('Python %s on %s' % (sys.version, sys.platform))
-sys.path.extend(['C:\\upwork\\freelance'])
+					if idx_start > 0 and idx_end > 9:
+						row['tel'] = temp[idx_start+2:idx_end]
+				except:
+					row['tel'] = ''
+					pass
+				try:
+					idx = temp.index("Obiettivi")
+					if idx > 0:
+						row['obiettivi'] = "$$$".join(temp[idx+1:])
+				except:
+					row['obiettivi'] = ''
+					pass
 
-Python 2.7.10 (default, May 23 2015, 09:40:32) [MSC v.1500 32 bit (Intel)] on win32
->>> import requests
->>> from lxml import html
->>> url = 'http://www.orimregionelombardia.it/AM-risultatiRicerca.php?operatore=AND&chiaveRicerca=&provincia=&nazionalita=0&obiettivi%5B%5D=0&obiettivi%5B%5D=0&obiettivi%5B%5D=0&obiettivi%5B%5D=0&action=ricerca'
->>> headers = {'User-Agent': 'Mozilla/5.0'}
->>> r = requests.get(url, headers=headers)
->>> tree = html.fromstring(r.content)
->>> anchors = tree.xpath("//table[@class='standard']//a/@href")
->>> len(anchors)
-402
->>> base_url = 'http://www.orimregionelombardia.it/'
->>> r = requests.get(base_url + anchors[0], headers=headers)
->>> r.url
-u'http://www.orimregionelombardia.it/AM-scheda.php?ID=3364'
->>> tree = html.fromstring(r.content)
->>> tree.xpath("//a[@name='_top']/@href")
-[]
->>> tree.xpath("//div[@id='divContenuti']/h1/text()")
-['Associazione dei Senegalesi della Provincia di Lecco']
->>> tree.xpath("//table[@class='no_border']/td//text()[normalize-space()]")
-['Indirizzo', '23900 Lecco (LC)', 'Telefono Principale', '0341/488237', 'Fax', '0341/488245', 'Email principale', 'medinaserv@libero.it', u'Nazionalit\xe0 prevalente degli associati', 'Senegal', 'Presidente', 'Casset El Hadji Mama', 'Tel. 347/8128557', 'Obiettivi', u'Creare rapporti, organizzare comunit\xe0 immigrata', 'Scambio, mediazione interculturale, convivenza pacifica', 'Cooperazione internazionale']
-'''
-
-			for tr in trs:
-                try:
-
-				recs = tr.xpath("*//text()[normalize-space()]")
-				if len(recs) > 1:
-					try:
-						col =  tr.xpath("*//text()[normalize-space()]")[0].encode("ascii")
-					except UnicodeError:
-						col =  tr.xpath("*//text()[normalize-space()]")[0].encode("utf-8")
-					else:
-						pass
-					try:
-						val = tr.xpath("*//text()[normalize-space()]")[1].encode("ascii")
-					except UnicodeError:
-						val = tr.xpath("*//text()[normalize-space()]")[1].encode("utf-8")
-					else:
-						pass
-					col = col.replace("\r", "").replace("\n", " ").strip()
-					val = val.replace("\r", "").replace("\n", " ").strip()
-					row[col] = val
+			except Exception as e:
+				print(e.__doc__)
+				print(e.args)
+					
 			rows.append(row)
 
-		unique_keys = {}
-		for r in rows:
-			for key in r:
-				if key not in unique_keys:
-					unique_keys[key] = ''
-
-		data = []
-		for r in rows:
-			record = {}
-			for ukey in unique_keys.iterkeys():
-				if ukey in r:
-					record[ukey] = r[ukey]
-				else:
-					record[ukey] = ''
-
-			data.append(record)
-
-		with open('cittametropolitana.csv', 'w') as f:
+		with open('orimregionelombardia.csv', 'w') as f:
 			wrote_header = False
-			for d in data:
+			for d in rows:
 				if wrote_header == False:
-					w = csv.DictWriter(f, unique_keys.keys())
+					w = csv.DictWriter(f, d.keys())
 					w.writeheader()
 					wrote_header = True
 				w.writerow(d)
