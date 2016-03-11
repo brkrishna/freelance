@@ -9,97 +9,229 @@
 # Copyright:    (c) Ramakrishna 2016
 # Licence:      <your licence>
 #-------------------------------------------------------------------------------
-import requests, csv, urllib, re
+import requests, csv, urllib, re, datetime, sys
+import os.path
 from bs4 import BeautifulSoup, SoupStrainer
+from collections import OrderedDict
 
-base_url = 'https://groups.freecycle.org/group/bathfreecycle/posts/all'
-url_2 = '?page='
-url_3 = '&resultsperpage=100&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off'
+home_url = 'https://my.freecycle.org/login'
+uk_base_url = 'https://www.freecycle.org/browse/UK'
+pager_line1 = '/posts/all?page='
+pager_line2 = '&resultsperpage=10&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off'
 
 headers = {'User-Agent': 'Mozilla/5.0'}
-
-
-def main():
-	#get_urls()
-	get_details()
+data = {'username':'brkrishna@gmail.com', 'pass':'Sanjana04', 'referer':''}
 
 def get_details():
 	try:
 
-		with open('urls', 'r') as f:
-			urls = f.readlines()
+		s = requests.session()
+		r = s.post(home_url, headers=headers, data=data)
 
-		rows = []
-		for url in urls:
+		with open('freecycle_groups.csv', 'r') as f:
+			group_urls = csv.DictReader(f)
+
+			finished_urls = []
+			if os.path.isfile('urls_done'):
+				finished_urls = open('urls_done').read().splitlines()
+
+			for gu in group_urls:
+				post_urls = []
+				if gu['group_url'].replace("\n", "") in finished_urls:
+					continue
+
+				r = requests.get(gu['group_url'].replace("\n", ""), headers=headers)
+				tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('table', {'id':'group_posts_table'}))
+
+				anchors = tree.findAll('a', href=True)
+				i = 2
+
+				counter = 3
+				while len(anchors) > 0:
+					for a in anchors:
+						post_urls.append(a['href'])
+
+					anchors = 0
+
+					link = gu['group_url'].replace("\n", "") + pager_line1 + str(i) + pager_line2
+					res = s.get(link, headers=headers)
+					tree2 = BeautifulSoup(res.content, "html.parser", parse_only=SoupStrainer('table', {'id':'group_posts_table'}))
+
+					try:
+						anchors = tree2.findAll('a', href=True)
+						i += 1
+						if counter > 0:
+							counter -= 1
+						else:
+							break
+					except:
+						pass
+
+				post_urls = sorted(set(post_urls))
+				rows = []
+				counter2 = 3
+				for pu in post_urls:
+
+					r = s.get(pu.replace("\n", ""))
+					tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('div', {'id':'group_post'}))
+					type = region = group = loc = post_id = title = date = time = posted_by = desc = url = ''
+
+					#To join the group if not already part of it
+					try:
+						a = tree.find('a', href=re.compile('join_group'))
+						r = s.get(a['href'])
+
+						r = s.get(pu.replace("\n", ""))
+						tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('div', {'id':'group_post'}))
+					except:
+						pass
+					#End join the group
+
+					try:
+						post_id = tree.find('h2', text = re.compile('post*', re.IGNORECASE))
+						post_id = re.search("[0-9]+", post_id.text).group()
+					except:
+						pass
+
+					try:
+						type_content = tree.find('h2', text = re.compile('offer*', re.IGNORECASE))
+						if type_content == None:
+							type_content = tree.find('h2', text = re.compile('wanted*', re.IGNORECASE))
+							type = 'WANTED'
+						else:
+							type = 'OFFER'
+
+						content = type_content.text
+						title = content[content.find(":")+1:].strip()
+
+					except:
+						pass
+
+					try:
+						details = tree.find('div',{'id':'post_details'})
+						if details:
+							details_text = details.text
+							loc = details_text[details_text.find("Location :")+10:details_text.find("Date")].strip()
+							time = re.search("([0-9]{2}):([0-9]{2}):([0-9]{2})", details_text).group()
+							date = details_text.replace(loc, "").replace(time, "").replace(":", "").replace("Location", "").replace("Date", "").strip()
+							date = date[:date.find("Posted")]
+							date = date.replace("PM UTC", "").replace("AM UTC", "").strip()
+							date = date.replace("PM UT", "").replace("AM UT", "").strip()
+							try:
+								d = datetime.datetime.strptime(date, '%a %b %d %Y')
+								date = d.strftime('%d/%m/%y')
+							except:
+								try:
+									d = datetime.datetime.strptime(date, '%a %d %b %Y')
+									date = d.strftime('%d/%m/%y')
+								except:
+									pass
+
+							try:
+								posted_by = details.find('span', text = re.compile('posted by*', re.IGNORECASE)).findParent().text
+								posted_by = posted_by[posted_by.find(":")+1:].replace("Posted by","").strip()
+							except:
+								pass
+					except:
+						pass
+
+					try:
+						desc = tree.find("div", {"id":"group_post"}).find("p")
+						if desc:
+							desc = desc.text.strip()
+					except:
+						pass
+
+					try:
+						image_url = tree.find("div", {"id":"group_post"}).findAll("a", onclick=True)
+						if image_url:
+							href = image_url[0]['href']
+							urllib.request.urlretrieve(href, "images/" + str(row['post_id']) + ".jpg")
+					except Exception as e:
+						print(e.__doc__)
+						print(e.args)
+						pass
+
+					try:
+						row = OrderedDict()
+
+						row['type'] = type
+						row['region'] = gu['region']
+						row['group'] = gu['group']
+						row['loc'] = loc
+						row['post_id'] = post_id
+						row['title'] = title
+						row['date'] = date
+						row['time'] = time
+						row['posted_by'] = posted_by
+						row['desc'] = desc
+						row['url'] = pu.replace("\n", "")
+						rows.append(row)
+
+					except:
+						pass
+
+					if counter2 > 0:
+						counter2 -= 1
+					else:
+						break
+
+				file_exists = os.path.isfile('freecycle.csv')
+				wrote_header = False
+				with open('freecycle.csv', 'a') as f:
+					for d in rows:
+						if file_exists == True and wrote_header == False:
+							w = csv.DictWriter(f, d.keys())
+							wrote_header = True
+						elif file_exists == False and wrote_header == False:
+							w = csv.DictWriter(f, d.keys())
+							w.writeheader()
+							wrote_header = True
+						w.writerow(d)
+
+				open('urls_done', 'a').write(gu['group_url'].replace("\n","") + '\n')
+
+	except Exception as e:
+		print(e.__doc__)
+		print(e.args)
+
+def get_urls():
+	try:
+		s = requests.session()
+		r = s.post(home_url, headers=headers, data=data)
+		r = s.get(uk_base_url, headers=headers)
+
+		tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('article', {'id':'active_regions'}))
+		regions = tree.findAll('a', {'href':re.compile('http://www.freecycle.org/')})
+
+		region_urls = []
+		for r in regions:
 			row = {}
-			r = requests.get(url.replace("\n", ""), headers=headers)
-			tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('div', {'id':'group_post'}))
+			row['region'] = r.text.strip()
+			row['region_url'] = r['href']
+			region_urls.append(row)
 
-			try:
-				post_id = tree.find('h2', text = re.compile('post*', re.IGNORECASE))
-				row['post_id'] = re.search("[0-9]+", post_id.text).group()
-			except:
-				row['post_id'] = ''
-				pass
+		group_urls = []
+		for ru in region_urls:
+			r = s.get(ru['region_url'], headers=headers)
+			tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('article', {'id':'active_groups'}))
+			groups = tree.findAll('a', {'href':re.compile('http://groups.freecycle.org/')})
 
-			try:
-				type_content = tree.find('h2', text = re.compile('offer*', re.IGNORECASE))
-				if type_content == None:
-					type_content = tree.find('h2', text = re.compile('wanted*', re.IGNORECASE))
-					type = 'WANTED'
+			counter = 3
+			for g in groups:
+				row = OrderedDict()
+				row['region'] = ru['region']
+				row['group'] = g.text.strip()
+				row['group_url'] = g['href']
+				group_urls.append(row)
+				if counter > 0:
+					counter -= 1
 				else:
-					type = 'OFFER'
+					break
 
-				content = type_content.text
-				content = content[content.find(":")+1:].strip()
-				row['type'] = type
-				row['content'] = content
-			except:
-				row['type'] = ''
-				row['content'] = ''
-				pass
-
-			try:
-				details = tree.find('div',{'id':'post_details'})
-				if details:
-					details = details.text
-					loc = details[details.find("Location :")+10:details.find("Date")].strip()
-					time = re.search("([0-9]{2}):([0-9]{2}):([0-9]{2})", details).group()
-					date = details.replace(loc, "").replace(time, "").replace(":", "").replace("Location", "").replace("Date", "").strip()
-					row['loc'] = loc
-					row['date'] = date
-					row['time'] = time
-			except:
-				row['loc'] = ''
-				row['date'] = ''
-				row['time'] = ''
-				pass
-
-			try:
-				desc = tree.find("div", {"id":"group_post"}).find("p")
-				if desc:
-					desc = desc.text.strip()
-					row['desc'] = desc.replace("\r", "$$$").replace("\n", "###").strip()
-			except:
-				row['desc'] = ''
-				pass
-
-			try:
-				image_url = tree.find("div", {"id":"group_post"}).findAll("a", onclick=True)
-				if image_url:
-					href = image_url[0]['href']
-					urllib.request.urlretrieve(href, "images/" + str(row['post_id']) + ".jpg")
-			except Exception as e:
-				print(e.__doc__)
-				print(e.args)
-				pass
-
-			row['url'] = url.replace("\n","")
-			rows.append(row)
-
-		with open('freecycle.csv', 'w') as f:
+		with open('freecycle_groups.csv', 'w') as f:
 			wrote_header = False
-			for d in rows:
+			for d in group_urls:
 				if wrote_header == False:
 					w = csv.DictWriter(f, d.keys())
 					w.writeheader()
@@ -110,40 +242,26 @@ def get_details():
 		print(e.__doc__)
 		print(e.args)
 
-def get_urls():
+def main(argv):
 	try:
-		r = requests.get(base_url, headers=headers)
-		tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('table', {'id':'group_posts_table'}))
-
-		with open('urls', 'a') as f:
-			anchors = tree.findAll('a', href=True)
-
-			i = 2
-			while len(anchors) > 0:
-				url_links = []
-				for a in anchors:
-					url_links.append(a['href'])
-
-				url_links = sorted(set(url_links))
-				for a in url_links:
-					f.write(a + "\n")
-				anchors = 0
-
-				link = base_url + url_2 + str(i) + url_3
-				print(link)
-				r = requests.get(link, headers=headers)
-				tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('table', {'id':'group_posts_table'}))
-
-				try:
-					anchors = tree.findAll('a', href=True)
-					i += 1
-				except:
-					pass
+		process_source = None
+		if len(argv) > 1:
+			process_source = argv[1]
+			if process_source == "URLS":
+				get_urls()
+			elif process_source == "POSTS":
+				get_details()
+			else:
+				print("Invalid choice, please specify either of URLS or POSTS...")
+				exit
+		else:
+			print("Please specify the choice you wish to run - URLS or POSTS...")
+		exit
 
 	except Exception as e:
 		print(e.__doc__)
 		print(e.args)
 
 if __name__ == '__main__':
-	main()
+	main(sys.argv)
 
