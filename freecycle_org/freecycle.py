@@ -20,7 +20,7 @@ pager_line1 = '/posts/all?page='
 pager_line2 = '&resultsperpage=10&showall=off&include_offers=off&include_wanteds=off&include_receiveds=off&include_takens=off'
 
 headers = {'User-Agent': 'Mozilla/5.0'}
-data = {'username':'brkrishna@gmail.com', 'pass':'Sanjana04', 'referer':''}
+data = {'username':'alanh777', 'pass':'Orange101', 'referer':''}
 
 def get_details():
 	try:
@@ -46,7 +46,6 @@ def get_details():
 				anchors = tree.findAll('a', href=True)
 				i = 2
 
-				counter = 3
 				while len(anchors) > 0:
 					for a in anchors:
 						post_urls.append(a['href'])
@@ -60,16 +59,11 @@ def get_details():
 					try:
 						anchors = tree2.findAll('a', href=True)
 						i += 1
-						if counter > 0:
-							counter -= 1
-						else:
-							break
 					except:
 						pass
 
 				post_urls = sorted(set(post_urls))
 				rows = []
-				counter2 = 3
 				for pu in post_urls:
 
 					r = s.get(pu.replace("\n", ""))
@@ -146,7 +140,7 @@ def get_details():
 						image_url = tree.find("div", {"id":"group_post"}).findAll("a", onclick=True)
 						if image_url:
 							href = image_url[0]['href']
-							urllib.request.urlretrieve(href, "images/" + str(row['post_id']) + ".jpg")
+							urllib.request.urlretrieve(href, "images/" + str(post_id) + ".jpg")
 					except Exception as e:
 						print(e.__doc__)
 						print(e.args)
@@ -167,27 +161,15 @@ def get_details():
 						row['desc'] = desc
 						row['url'] = pu.replace("\n", "")
 						rows.append(row)
-
 					except:
 						pass
-
-					if counter2 > 0:
-						counter2 -= 1
-					else:
-						break
-
-				file_exists = os.path.isfile('freecycle.csv')
-				wrote_header = False
-				with open('freecycle.csv', 'a') as f:
-					for d in rows:
-						if file_exists == True and wrote_header == False:
-							w = csv.DictWriter(f, d.keys())
-							wrote_header = True
-						elif file_exists == False and wrote_header == False:
-							w = csv.DictWriter(f, d.keys())
-							w.writeheader()
-							wrote_header = True
-						w.writerow(d)
+				if len(rows) > 0:
+					file_exists = os.path.isfile('freecycle.csv')
+					with open('freecycle.csv', 'a', newline='', encoding='utf-8') as outfile:
+						fp = csv.DictWriter(outfile, rows[0].keys())
+						if file_exists == False:
+							fp.writeheader()
+						fp.writerows(rows)
 
 				open('urls_done', 'a').write(gu['group_url'].replace("\n","") + '\n')
 
@@ -217,26 +199,17 @@ def get_urls():
 			tree = BeautifulSoup(r.content, "html.parser", parse_only=SoupStrainer('article', {'id':'active_groups'}))
 			groups = tree.findAll('a', {'href':re.compile('http://groups.freecycle.org/')})
 
-			counter = 3
 			for g in groups:
 				row = OrderedDict()
 				row['region'] = ru['region']
 				row['group'] = g.text.strip()
 				row['group_url'] = g['href']
 				group_urls.append(row)
-				if counter > 0:
-					counter -= 1
-				else:
-					break
 
-		with open('freecycle_groups.csv', 'w') as f:
-			wrote_header = False
-			for d in group_urls:
-				if wrote_header == False:
-					w = csv.DictWriter(f, d.keys())
-					w.writeheader()
-					wrote_header = True
-				w.writerow(d)
+		with open('freecycle_groups.csv', 'w', newline='') as outfile:
+			fp = csv.DictWriter(outfile, group_urls[0].keys())
+			fp.writeheader()
+			fp.writerows(group_urls)
 
 	except Exception as e:
 		print(e.__doc__)

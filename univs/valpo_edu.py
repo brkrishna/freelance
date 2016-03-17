@@ -92,7 +92,7 @@ def main():
 
 		queue = Queue()
 
-		for x in range(8):
+		for x in range(3):
 			worker = Worker(queue)
 			worker.daemon = True
 			worker.start()
