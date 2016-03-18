@@ -1,13 +1,13 @@
 # -- coding: utf-8 --
 #-------------------------------------------------------------------------------
-# Name:         parser
+# Name:		 parser
 # Purpose:
 #
-# Author:       Ramakrishna
+# Author:	   Ramakrishna
 #
-# Dated:        07/Mar/2016
-# Copyright:    (c) Ramakrishna 2016
-# Licence:      <your licence>
+# Dated:		07/Mar/2016
+# Copyright:	(c) Ramakrishna 2016
+# Licence:	  <your licence>
 #-------------------------------------------------------------------------------
 import csv, re, datetime, sys, time
 import os.path
@@ -23,7 +23,7 @@ start_url = 'http://shop.mywebgrocer.com/shop.aspx?strid=5F3D126398'
 def search(process_url):
 	d = None
 	try:
-		'''	
+		'''
 		server_url = "http://%s:%s/wd/hub" % ('127.0.0.1', '4444')
 		dc = DesiredCapabilities.HTMLUNIT
 		d = webdriver.Remote(server_url, dc)
@@ -116,7 +116,13 @@ def search(process_url):
 							while a_next != None:
 								try:
 									rows = []
-									for i in range(0, 14):
+									main_window = d.current_window_handle
+									d.switch_to_default_content()
+									d.switch_to.frame(d.find_element_by_name('MidFrame'))
+									d.switch_to.frame(d.find_element_by_name('MainFrame'))
+									plinks = d.find_elements_by_class_name('ProductItem')
+
+									for i in range(0, len(plinks)-1):
 										try:
 
 											main_window = d.current_window_handle
@@ -126,10 +132,9 @@ def search(process_url):
 											plinks = d.find_elements_by_class_name('ProductItem')
 											if term + plinks[i].get_attribute('id') + ";" in finished_terms:
 												continue
-
 											with open('mwg_terms', 'a') as f:
 												f.write(term + plinks[i].get_attribute('id') + ";" + "\n")
-											try:				
+											try:
 												elem = plinks[i].find_element_by_tag_name('a')
 											except:
 												break
@@ -222,7 +227,13 @@ def search(process_url):
 						while a_next != None:
 							try:
 								rows = []
-								for i in range(0, 14):
+								main_window = d.current_window_handle
+								d.switch_to_default_content()
+								d.switch_to.frame(d.find_element_by_name('MidFrame'))
+								d.switch_to.frame(d.find_element_by_name('MainFrame'))
+								plinks = d.find_elements_by_class_name('ProductItem')
+
+								for i in range(0, len(plinks)-1):
 									try:
 
 										main_window = d.current_window_handle
@@ -237,9 +248,9 @@ def search(process_url):
 										with open('mwg_terms', 'a') as f:
 											f.write(term + plinks[i].get_attribute('id') + ";" + "\n")
 
-										try:		
+										try:
 											elem = plinks[i].find_element_by_tag_name('a')
-										except:
+										except IndexError:
 											break
 
 										row = OrderedDict()
@@ -319,7 +330,7 @@ def search(process_url):
 								print(e.args)
 								pass
 
-	except Exception as e:
+	except (Exception, KeyboardInterrupt) as e:
 		print(e.__doc__)
 		print(e.args)
 	finally:
