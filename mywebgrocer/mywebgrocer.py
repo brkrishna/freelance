@@ -31,8 +31,7 @@ def search(process_url):
 		dc = DesiredCapabilities.HTMLUNIT
 		dc['permissions.default.image'] = 2
 		d = webdriver.Firefox(capabilities=dc)
-		time.sleep(20)
-		d.get(start_url)
+		d.get(process_url)
 
 		finished_terms = []
 
@@ -337,8 +336,15 @@ def search(process_url):
 		if d != None:
 			d = None
 
-def main():
-	search(start_url)
+def main(argv):
+	process_url = None
+	if len(argv) > 1:
+		process_url = argv[1]
+		if process_url != None:
+			search(process_url)
+	else:
+		search(start_url)
 
 if __name__ == '__main__':
-	main()
+	main(sys.argv)
+
