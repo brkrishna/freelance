@@ -15,7 +15,6 @@ create table if not exists companies(
 	cap varchar(10),
 	comune varchar(100),
 	sigla_provincia varchar(2),
-	raw_text text,
 	created timestamp not null default current_timestamp
 );
 
@@ -32,7 +31,6 @@ create table if not exists categories(
 	inizio varchar(255), 
 	data_scadenza varchar(255), 
 	sotto_categoria	varchar(255),
-	raw_text text,
 	created timestamp not null default current_timestamp
 );
 
@@ -41,8 +39,7 @@ create table if not exists cer_own_account(
 	impresa	varchar(255) not null,
 	codice varchar(50),
 	descrizione varchar(1000),
-	raw_text text,
-	created timestamp not null default current_timestamp	
+	created timestamp not null default current_timestamp
 );
 
 drop table if exists media_list;
@@ -51,6 +48,10 @@ create table if not exists media_list(
 	targa varchar(255),
 	tipo_mezzo varchar(255),
 	catg_attive varchar(255),
-	raw_text text,
-	created timestamp not null default current_timestamp	
+	created timestamp not null default current_timestamp
 );	
+
+create index impresas_done on impresas(done);
+create index impresas_cat on impresas(cat);
+create index impresas_cer on impresas(cer);
+create index impresas_media_list on impresas(media_list);
