@@ -1,0 +1,7 @@
+XLODBC
+1
+Driver={SQLite3 ODBC Driver};Database=G:\Work\PortablePython\bolly_reviews\bolly_reviews.db3;StepAPI=0;SyncPragma=FULL;NoTXN=0;Timeout=1000;ShortNames=1;LongNames=1;NoCreat=1;NoWCHAR=0;FKSupport=1;JournalMode=;OEMCP=1;LoadExt=;BigInt=0;JDConv=0;PWD=
+SELECT reviews_0.source_cd, reviews_0.year, reviews_0.name, reviews_0.rvw_link, reviews_0.critic, reviews_0.rating, reviews_0.max_rtng, reviews_0.rvw_smy, reviews_0.director, reviews_0.actor1, reviews_0.actor2, reviews_0.actor3, reviews_0.genre, reviews_0.duration, reviews_0.ts, reviews_0.title  FROM main.reviews reviews_0  ORDER BY reviews_0.source_cd, reviews_0.name
+
+
+source_cd	year	name	rvw_link	critic	rating	max_rtng	rvw_smy	director	actor1	actor2	actor3	genre	duration	ts	title

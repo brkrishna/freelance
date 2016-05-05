@@ -75,24 +75,27 @@ def process(gu):
 			candies = tree.findAll('tr', {'class':'candy2'})
 			candies += tree.findAll('tr', {'class':'candy1'})
 			anchors = []
+			d = datetime.datetime.today()			
 			for candy in candies:
 				try:
 					candy_text = candy.text.strip()
+					date = candy_text
 					if candy_text:
-						if re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
-							date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
-						elif re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
-							date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
+						if re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{1,2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
+							date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{1,2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
+						elif re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
+							date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
+						elif re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{4}) ([0-9]{2}):([0-9]{2}):([0-9]{2})", candy_text):
+							date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{4}) ([0-9]{2}):([0-9]{2}):([0-9]{2})", candy_text).group()
 						d = datetime.datetime.strptime(date, '%a %b %d %H:%M:%S %Y')
-				except Exception as e:
-					print(e.__doc__)
-					print(e.args)
+				except:
 					try:
 						d = datetime.datetime.strptime(date, '%a %d %b %H:%M:%S %Y')
-					except Exception as e:
-						print(e.__doc__)
-						print(e.args)
-						pass
+					except :
+						try:
+							d = datetime.datetime.strptime(date, '%a %d %b %Y %H:%M:%S')
+						except:
+							pass
 
 				today = datetime.datetime.today()
 				c = abs(today - d)
@@ -124,22 +127,23 @@ def process(gu):
 				for candy in candies:
 					try:
 						candy_text = candy.text.strip()
+						date = candy_text
 						if candy_text:
-							if re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
-								date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
-							elif re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
-								date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
+							if re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{1,2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
+								date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{1,2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
+							elif re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text):
+								date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{2}):([0-9]{2}):([0-9]{2}) ([0-9]{4})", candy_text).group()
+							elif re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{4}) ([0-9]{2}):([0-9]{2}):([0-9]{2})", candy_text):
+								date = re.search("(Mon?|Tue?|Wed?|Thu?|Fri?|Sat?|Sun?) ([0-9]{1,2}) (Jan?|Feb?|Mar?|Apr?|May?|Jun?|Jul?|Aug?|Sep?|Oct?|Nov?|Dec?) ([0-9]{4}) ([0-9]{2}):([0-9]{2}):([0-9]{2})", candy_text).group()
 							d = datetime.datetime.strptime(date, '%a %b %d %H:%M:%S %Y')
-					except Exception as e:
-						print(e.__doc__)
-						print(e.args)
+					except:
 						try:
 							d = datetime.datetime.strptime(date, '%a %d %b %H:%M:%S %Y')
-						except Exception as e:
-							print(e.__doc__)
-							print(e.args)
-							pass
-
+						except :
+							try:
+								d = datetime.datetime.strptime(date, '%a %d %b %Y %H:%M:%S')
+							except:
+								pass
 					today = datetime.datetime.today()
 					c = abs(today - d)
 					if c.days > 60:

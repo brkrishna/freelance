@@ -1,0 +1,7 @@
+XLODBC
+1
+Driver={SQLite3 ODBC Driver};Database=G:\Work\PortablePython\bolly_reviews\bolly_reviews.db3;StepAPI=0;SyncPragma=FULL;NoTXN=0;Timeout=1000;ShortNames=1;LongNames=1;NoCreat=1;NoWCHAR=0;FKSupport=1;JournalMode=;OEMCP=1;LoadExt=;BigInt=0;JDConv=0;PWD=
+SELECT urls_0.source_cd, urls_0.source, urls_0.url, urls_0.ts, urls_0.done  FROM main.urls urls_0  ORDER BY urls_0.source_cd
+
+
+source_cd	source	url	ts	done

@@ -1,0 +1,94 @@
+Python 3.5.1 |Anaconda 2.4.1 (64-bit)| (default, Dec  7 2015, 11:16:01) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux
+Type "copyright", "credits" or "license()" for more information.
+>>> import string
+>>> ltrs = string.ascii_lowercase
+>>> terms = []
+>>> for x in ltrs:
+	for y in ltrs:
+		for z in ltrs:
+			terms.append(ltrs[x] + ltrs[y] + ltrs[z])
+
+			
+Traceback (most recent call last):
+  File "<pyshell#7>", line 4, in <module>
+    terms.append(ltrs[x] + ltrs[y] + ltrs[z])
+TypeError: string indices must be integers
+>>> terms = []
+>>> for x in ltrs:
+	for y in ltrs:
+		for z in ltrs:
+			terms.append(x + y + z)
+
+			
+>>> len(terms)
+17576
+>>> temrs[17576]
+Traceback (most recent call last):
+  File "<pyshell#12>", line 1, in <module>
+    temrs[17576]
+NameError: name 'temrs' is not defined
+>>> terms[17576]
+Traceback (most recent call last):
+  File "<pyshell#13>", line 1, in <module>
+    terms[17576]
+IndexError: list index out of range
+>>> terms[17575]
+'zzz'
+>>> terms = []
+>>> for x in ltrs:
+	for y in ltrs:
+		for z in ltrs:
+			terms.append(x + x + x)
+			terms.append(x + x + y)
+			terms.append(x + x + z)
+			terms.append(x + y + z)
+			terms.append(x + y + y)
+			terms.append(x + y + x)
+			terms.append(x + z + y)
+			terms.append(x + z + z)
+			terms.append(x + z + x)
+
+			
+>>> with open('/home/ramakrishna/projects/freelance/univs/current/threechars'.'w') as f:
+	
+SyntaxError: invalid syntax
+>>> with open('/home/ramakrishna/projects/freelance/univs/current/threechars','w') as f:
+	f.writelines(terms)
+
+	
+>>> len(terms)
+158184
+>>> import pickle
+>>> pickle.dump(terms, '/home/ramakrishna/projects/freelance/univs/current/threechars')
+Traceback (most recent call last):
+  File "<pyshell#31>", line 1, in <module>
+    pickle.dump(terms, '/home/ramakrishna/projects/freelance/univs/current/threechars')
+TypeError: file must have a 'write' attribute
+>>> with open('/home/ramakrishna/projects/freelance/univs/current/threechars','w') as f:
+	pickle.dump(terms, f)
+
+	
+Traceback (most recent call last):
+  File "<pyshell#33>", line 2, in <module>
+    pickle.dump(terms, f)
+TypeError: write() argument must be str, not bytes
+>>> pickle.dump(terms, '/home/ramakrishna/projects/freelance/univs/current/threechars')
+Traceback (most recent call last):
+  File "<pyshell#34>", line 1, in <module>
+    pickle.dump(terms, '/home/ramakrishna/projects/freelance/univs/current/threechars')
+TypeError: file must have a 'write' attribute
+>>> with open('/home/ramakrishna/projects/freelance/univs/current/threechars','w') as f:
+	f.write("\n".join(terms))
+
+	
+632735
+>>> u = sorted(set(terms))
+>>> len(u)
+17576
+>>> with open('/home/ramakrishna/projects/freelance/univs/current/threechars','w') as f:
+	f.write("\n".join(u))
+
+	
+70303
+>>> 

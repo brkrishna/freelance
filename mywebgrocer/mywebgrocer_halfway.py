@@ -27,7 +27,8 @@ def search(process_url):
 		dc = DesiredCapabilities.HTMLUNIT
 		dc['permissions.default.image'] = 2
 		'''
-		binary = FirefoxBinary("C:\\Users\\Administrator\\Desktop\\Tor Browser\\Browser\\firefox.exe")
+		#binary = FirefoxBinary("C:\\Users\\Administrator\\Desktop\\Tor Browser\\Browser\\firefox.exe")
+		binary = FirefoxBinary("C:\\Users\\Administrator\\Desktop\\Tor Browser\\Browser\\firefox.exe")v
 		d = webdriver.Firefox(firefox_binary=binary)
 
 		#d = webdriver.Firefox()

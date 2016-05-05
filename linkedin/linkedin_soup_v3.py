@@ -47,7 +47,7 @@ def main():
         main_window = d.current_window_handle
 
         d.find_element_by_partial_link_text('Go to Recruiter').click()
-        time.sleep(1)
+        time.sleep(10)
         handles = d.window_handles
         d.switch_to_window(handles.pop())
         time.sleep(random.randint(MIN_WAIT,MAX_WAIT))
