@@ -79,3 +79,21 @@ docs/_build/
 target/
 *.csv
 *.zip
+
+# Documents
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.csv
+*.mdb
+*.db3
+*.sqlite
+*.ods
+*.rar
+*.zip
+*.gif
+*.jpg
+*.png
+*.tif
